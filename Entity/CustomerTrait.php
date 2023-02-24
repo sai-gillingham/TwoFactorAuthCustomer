@@ -74,7 +74,7 @@ trait CustomerTrait
         // TODO: なんちゃって
         $token = '';
         for ($i = 0; $i < 6; $i++) {
-            $token .= (string)rand(0, 9);
+            $token .= (string)random_int(0, 9);
         }
 
         $this->setDeviceAuthOneTimeToken($token);

@@ -183,12 +183,12 @@ class CustomerTwoFactorAuthService
 
     /**
      * 認証済みか？
-     * 
+     *
      * @param \Eccube\Entity\Customer $Customer
      *
      * @return boolean
      */
-    public function isAuth($Customer, $route = null)
+    public function isAuthed($Customer, $route = null)
     {
         if (!$Customer->isTwoFactorAuth()) {
             return false;
@@ -228,7 +228,7 @@ class CustomerTwoFactorAuthService
 
     /**
      * 2段階認証用Cookie生成.
-     * 
+     *
      * @param \Eccube\Entity\Customer $Customer
      *
      * @return Cookie
@@ -269,7 +269,7 @@ class CustomerTwoFactorAuthService
             ($this->eccubeConfig->get('eccube_force_ssl') ? Cookie::SAMESITE_NONE : null) // sameSite
         );
 
-        if ($route == null && !$this->isAuth($Customer)) {
+        if ($route == null && !$this->isAuthed($Customer)) {
             // 直リンクで重要操作ルートを指定された場合、ログイン認証済みCookieが存在しない為、このタイミングで生成する
             $login_cookie = $this->createAuthedCookie($Customer, 'mypage');
         }
@@ -279,7 +279,7 @@ class CustomerTwoFactorAuthService
 
     /**
      * 二段階認証設定が有効か?
-     * 
+     *
      * @return bool
      */
     public function isEnabled(): bool
@@ -289,25 +289,25 @@ class CustomerTwoFactorAuthService
 
     /**
      * SMSで顧客電話番号へメッセージを送信.
-     * 
+     *
      * @param \Eccube\Entity\Customer $Customer
-     * 
+     *
      */
-    public function sendBySms($Customer, $phoneNumber, $body) 
+    public function sendBySms($Customer, $phoneNumber, $body)
     {
         // TODO : https://symfony.com/doc/current/notifier.html でまとめたい
         // Twilio
         $twilio = new \Twilio\Rest\Client(
-            $this->twoFactorAuthConfig->getApiKey(), 
+            $this->twoFactorAuthConfig->getApiKey(),
             $this->twoFactorAuthConfig->getApiSecret()
-        ); 
+        );
         // SMS送信
-        $message = $twilio->messages 
+        $message = $twilio->messages
                     ->create('+81' . $phoneNumber,
                         array(
-                            "from" => $this->twoFactorAuthConfig->getFromTel(),
+                            "from" => $this->twoFactorAuthConfig->getFromPhonenumber(),
                             "body" => $body
-                        ) 
+                        )
                     );
 
         return $message;
@@ -320,7 +320,7 @@ class CustomerTwoFactorAuthService
     public function getIncludeRoutes() : array
     {
         $routes = [];
-        $include = $this->twoFactorAuthConfig->getIncludeRoute();
+        $include = $this->twoFactorAuthConfig->getIncludeRoutes();
         if ($include) {
             $routes = preg_split('/\R/', $include);
         }
@@ -329,13 +329,13 @@ class CustomerTwoFactorAuthService
 
     /**
      * 認証除外ルートを取得.
-     * 
+     *
      * @return array
      */
     public function getExcludeRoutes() : array
     {
         $routes = [];
-        $include = $this->twoFactorAuthConfig->getExcludeRoute();
+        $include = $this->twoFactorAuthConfig->getExcludeRoutes();
         if ($include) {
             $routes = preg_split('/\R/', $include);
         }

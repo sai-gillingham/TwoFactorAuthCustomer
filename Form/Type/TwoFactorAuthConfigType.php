@@ -48,13 +48,13 @@ class TwoFactorAuthConfigType extends AbstractType
                 new Assert\NotBlank(),
             ],
           ])
-          ->add('from_tel', TextType::class, [
+          ->add('from_phone_number', TextType::class, [
             'required' => true,
             'constraints' => [
                 new Assert\NotBlank(),
             ],
           ])
-          ->add('include_route', TextareaType::class, [
+          ->add('include_routes', TextareaType::class, [
             'required' => false,
             'constraints' => [
               new Assert\Length([
@@ -62,7 +62,7 @@ class TwoFactorAuthConfigType extends AbstractType
               ]),
             ],
           ])
-          ->add('exclude_route', TextareaType::class, [
+          ->add('exclude_routes', TextareaType::class, [
             'required' => false,
             'constraints' => [
               new Assert\Length([
@@ -70,7 +70,7 @@ class TwoFactorAuthConfigType extends AbstractType
               ]),
             ],
           ])
-          
+
           ;
       }
 
