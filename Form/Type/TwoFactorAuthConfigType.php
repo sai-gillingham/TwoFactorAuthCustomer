@@ -82,12 +82,6 @@ class TwoFactorAuthConfigType extends AbstractType
                     new Assert\Length([
                         'max' => $this->eccubeConfig['eccube_ltext_len'],
                     ]),
-                    new Assert\Regex(
-                        [
-                            'pattern' => '/^[a-zA-Z0-9]+$/i',
-                            'message' => 'form_error.graph_only'
-                        ]
-                    ),
                 ],
             ])
             ->add('exclude_routes', TextareaType::class, [
@@ -96,12 +90,6 @@ class TwoFactorAuthConfigType extends AbstractType
                     new Assert\Length([
                         'max' => $this->eccubeConfig['eccube_ltext_len'],
                     ]),
-                    new Assert\Regex(
-                        [
-                            'pattern' => '/^[a-zA-Z0-9]+$/i',
-                            'message' => 'form_error.graph_only'
-                        ]
-                    ),
                 ],
             ]);
     }
