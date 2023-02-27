@@ -82,7 +82,6 @@ class TwoFactorAuthConfigType extends AbstractType
                     new Assert\Length([
                         'max' => $this->eccubeConfig['eccube_ltext_len'],
                     ]),
-                    new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
                     new Assert\Regex(
                         [
                             'pattern' => '/^[a-zA-Z0-9]+$/i',
@@ -97,7 +96,6 @@ class TwoFactorAuthConfigType extends AbstractType
                     new Assert\Length([
                         'max' => $this->eccubeConfig['eccube_ltext_len'],
                     ]),
-                    new Assert\Length(['max' => $this->eccubeConfig['eccube_stext_len']]),
                     new Assert\Regex(
                         [
                             'pattern' => '/^[a-zA-Z0-9]+$/i',
