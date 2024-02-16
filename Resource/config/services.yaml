@@ -45,3 +45,11 @@ parameters:
   plugin_eccube_2fa_route_cookie_value_character_length: '%env(PLUGIN_ECCUBE_2FA_ROUTE_COOKIE_VALUE_CHARACTER_LENGTH)%'
   plugin_eccube_2fa_one_time_token_length: '%env(PLUGIN_ECCUBE_2FA_ONE_TIME_TOKEN_LENGTH)%'
   plugin_eccube_2fa_one_time_token_expire_after_seconds: '%env(PLUGIN_ECCUBE_2FA_ONE_TIME_TOKEN_EXPIRE_AFTER_SECONDS)%'
+
+services:
+    Plugin\TwoFactorAuthCustomer42\Service\CustomerTwoFactorAuthService:
+        calls:
+            - [setContainer, ['@service_container']]
+        autowire: true
+        autoconfigure: true
+        public: false

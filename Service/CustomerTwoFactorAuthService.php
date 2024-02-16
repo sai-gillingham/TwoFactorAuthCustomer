@@ -27,7 +27,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\PasswordHasher\Hasher\PasswordHasherFactoryInterface;
-use Symfony\Component\Security\Core\Encoder\EncoderFactoryInterface;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface as EncoderFactoryInterface;
 use Twilio\Exceptions\ConfigurationException;
 use Twilio\Exceptions\TwilioException;
 use Twilio\Rest\Client;
@@ -144,7 +144,7 @@ class CustomerTwoFactorAuthService
         RequestStack $requestStack,
         TwoFactorAuthConfigRepository $twoFactorAuthConfigRepository,
         TwoFactorAuthCustomerCookieRepository $twoFactorCustomerCookieRepository,
-        PasswordHasherFactoryInterface $hashFactory
+        PasswordHasherFactoryInterface $hashFactory,
     ) {
         $this->entityManager = $entityManager;
         $this->eccubeConfig = $eccubeConfig;
